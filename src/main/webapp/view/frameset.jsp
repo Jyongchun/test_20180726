@@ -16,7 +16,7 @@
 			<frame src="view/content.jsp" name="show"/>
 		</frameset>
 		
-		<frame src="view/footer.jsp"noresize="noresize"  />
+
 	</frameset>
 	
 

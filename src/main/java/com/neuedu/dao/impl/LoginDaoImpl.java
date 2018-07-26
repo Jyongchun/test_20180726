@@ -19,13 +19,13 @@ public class LoginDaoImpl implements LoginDao{
 		Connection coon = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
-		//temp1��������
+		//temp1????????
 		try {
 			
-			System.out.println("�����������");
-			//temp2��ȡ����
+			System.out.println("???????????");
+			//temp2???????
 			coon = DButils.getConnection();
-			//temp3��ȡstatement
+			//temp3???statement
 			String sql = "select * from account where username=? and  password=? ";
 			
 			st = coon.prepareStatement(sql);
@@ -33,7 +33,7 @@ public class LoginDaoImpl implements LoginDao{
 			st.setString(2,password);
 			st.executeQuery();
 			rs = st.executeQuery();
-			 System.out.println("sql���ִ�����");
+			 System.out.println("sql?????????");
 				if(rs.first()) {
 					int id = rs.getInt("accountid");
 					String _username = rs.getString("username");
@@ -61,14 +61,14 @@ public class LoginDaoImpl implements LoginDao{
 	
 	}
 
-	//���token
+	//???token
 	public void addToken(Account acc, String token) {
-		//temp1 ��������
+		//temp1 ????????
 				Connection coon = null;
 				PreparedStatement st = null;
 							
 				try {
-					System.out.println("�����������");
+					System.out.println("???????????");
 					coon = DButils.getConnection();
 														
 					String sql ="update account set token=? where accountid=?";
@@ -78,7 +78,7 @@ public class LoginDaoImpl implements LoginDao{
 					st.setInt(2, acc.getId());
 					
 					st.execute();
-					System.out.println("Sql���ִ����ϣ�");
+					System.out.println("Sql??????????");
 					
 				} catch (SQLException e) {
 					
@@ -97,27 +97,27 @@ public class LoginDaoImpl implements LoginDao{
 		
 	}
 
-	//Ѱ��token
+	//???token
 	public String findTokenByAccountId(int accountid) {
 		
 	
 		Connection coon = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
-		//temp1��������
+		//temp1????????
 		try {
 			
-			System.out.println("�����������");
-			//temp2��ȡ����
+			System.out.println("???????????");
+			//temp2???????
 			coon = DButils.getConnection();
-			//temp3��ȡstatement
+			//temp3???statement
 			String sql = "select token from account where accountid=?";
 			System.out.println(sql);
 			st = coon.prepareStatement(sql);
 			st.setInt(1, accountid);
 			
 			rs = st.executeQuery();
-			System.out.println("sql���ִ�����");
+			System.out.println("sql?????????");
 			if(rs.first()) {
 					String token = rs.getString("token");
 					return token;

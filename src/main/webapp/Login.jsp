@@ -1,29 +1,68 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="login.css"/>
+	<meta charset="UTF-8">
+	<title></title>
+	<style type="text/css">
+		.login{
+			width: 100%;
+			height: 700px;
+			background: black;
+			opacity: 0.7;
+			position: relative;
+		}
+		span{
+			display: block;
+			color: white;
+			font-size: 25px;
+			text-align: center;
+		}
+		._1{
+			width: 571px;
+			height: 125px;
+
+			position: absolute;
+			left: 50%;
+			transform: translateX(-50%);
+			top: 200px;
+		}
+		#quan{
+			font-size: 45px;
+		}
+		._2{
+			width: 576px;
+			height: 103px;
+
+			position: absolute;
+			left: 50%;
+			transform: translateX(-50%);
+			top: 325px;
+		}
+		input{
+			width: 150px;
+			height: 19px;
+			background: black;
+			color: white;
+			font-size: 15px;
+			display: block;
+			float: left;
+			margin: 15px 15px;
+		}
+	</style>
 </head>
 <body>
-  <h1>Hello! JSP! </h1>
-
-	
-	
 <div class="login">
-			<form action="Login.do" method="get">
-    			<fieldset style="width: 300px;height: 250px;">
-				<legend>密码登录</legend>
-			<input class="inp" name="username" type="text" placeholder="邮箱/昵称/手机号码"/><br /><br />
-			<input class="inp"  type="password" name="password" placeholder="密码"/><br /><br />
-			<a href="#"><input class="denglu" style="width: 250px;cursor: pointer;" type="submit" value="登  录" /></a><br /><br />
-			<a class="_regester" href="register.html" target="_blank">立即注册</a>
-			</fieldset>
+	<div class="_1">
+		<span id="quan">全民惠</span><br />
+		<span>全民惠便利店后台管理系统</span>
+	</div>
+	<div class="_2">
+		<form action="/test/Login.do">
+		<input type="text" placeholder="用户名" name="username"/>
+		<input type="text" placeholder="密码" name="password"/>
+		<input style="height: 25px;" type="submit" value="登录"/></a>
 		</form>
-		</div>
-
-
+	</div>
+</div>
 </body>
 </html>

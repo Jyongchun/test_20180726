@@ -65,7 +65,7 @@ public class ProductServlet extends HttpServlet{
 		request.getRequestDispatcher("updateshow.jsp").forward(request, respose);
 		
 	}
-	/*չʾ������Ʒ*/
+	/*?????????*/
 	private void showProduct(HttpServletRequest request, HttpServletResponse respose) throws ServletException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
 		Product product = findProductById(id);
@@ -74,7 +74,7 @@ public class ProductServlet extends HttpServlet{
 		request.getRequestDispatcher("showall.jsp").forward(request, respose);
 		
 	}
-	/*ɾ����Ʒ*/
+	/*??????*/
 	public boolean deleteProduct(int id) {
 		
 		return ps.deleteProduct(id);
@@ -92,16 +92,16 @@ public class ProductServlet extends HttpServlet{
 			e.printStackTrace();
 		}
 		if(result) {
-			System.out.println("ɾ����Ʒ�ɹ�");
+			System.out.println("?????????");
 		//	jump(request, respose);
 			findAll(request, respose);
 		}else {
-			System.out.println("ɾ����Ʒʧ��");
+			System.out.println("?????????");
 		}
 		
 		
 	}
-	/*�޸���Ʒ��Ϣ*/
+	/*?????????*/
 	public boolean updateProduct(Product product) {
 		
 		return ps.updateProduct(product);
@@ -131,18 +131,18 @@ public class ProductServlet extends HttpServlet{
 			e.printStackTrace();
 		}
 		if(result) {
-			System.out.println("�޸���Ʒ�ɹ�");
+			System.out.println("�޸ĳɹ�");
 			//jump(request, respose);
 			findAll(request, respose);
 		}else {
-			System.out.println("�޸���Ʒʧ��");
+			System.out.println("?????????");
 		}
 		
 		
 		
 	}
 
-	/*չʾ��Ʒ��jspҳ��*/
+	/*???????jsp???*/
 
 	/*public void findAll(HttpServletRequest request, HttpServletResponse respose) throws ServletException, IOException {
 		System.out.println("=================");
@@ -161,19 +161,19 @@ public class ProductServlet extends HttpServlet{
 			_pageNo= Integer.parseInt(pageNo);
 			
 		}catch(NumberFormatException e) {
-			System.out.println("û��pageNo����");
+			System.out.println("û��pageNo");
 		}
-		PageModel<Product> pageModel = ps.findProductByPage(_pageNo, 3);
-		/*request.setAttribute("pageModel", pageModel);
-		request.getRequestDispatcher("product.jsp").forward(request, respose);*/
-		PrintWriter pw = respose.getWriter();	
+		PageModel<Product> pageModel = ps.findProductByPage(_pageNo,  3);
+		request.setAttribute("pageModel", pageModel);
+		request.getRequestDispatcher("product.jsp").forward(request, respose);
+		/*PrintWriter pw = respose.getWriter();
 		String json = JSONArray.toJSONString(pageModel);
 		System.out.println(json);
-		pw.print(json);
+		pw.print(json)*/;
 		
 	
 	}
-	//��תҳ��
+	//??????
 	/*public void jump(HttpServletRequest request, HttpServletResponse respose) throws ServletException, IOException {
 		ProductService ps = new ProductServiceImplSql();
 		PageModel<Product> pageModel = ps.findProductByPage(1, 3);
@@ -184,7 +184,7 @@ public class ProductServlet extends HttpServlet{
 	
 	
 	/*
-	 * �����Ʒ
+	 * ??????
 	 * */
 	private void addProduct(HttpServletRequest request, HttpServletResponse respose) throws ServletException, IOException {
 		double price = 0.0;
@@ -204,11 +204,11 @@ public class ProductServlet extends HttpServlet{
 			e.printStackTrace();
 		}
 		if(result) {
-			System.out.println("�����Ʒ�ɹ�");
-			//jump(request, respose);
+			System.out.println("?????????");
+
 			findAll(request, respose);
 		}else {
-			System.out.println("�����Ʒʧ��");
+			System.out.println("?????????");
 		}
 		
 		
@@ -227,7 +227,7 @@ public class ProductServlet extends HttpServlet{
 	
 	
 	
-	//ͨ��ID
+	//???ID
 	public Product findProductById(int id) {
 		
 		return ps.findProductById(id);
