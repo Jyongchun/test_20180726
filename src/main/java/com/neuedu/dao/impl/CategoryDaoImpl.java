@@ -1,7 +1,6 @@
 package com.neuedu.dao.impl;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,7 +10,6 @@ import java.util.List;
 import com.neuedu.dao.CategoryDao;
 import com.neuedu.entity.Category;
 import com.neuedu.entity.PageModel;
-import com.neuedu.entity.Product;
 import com.neuedu.utils.DButils;
 
 public class CategoryDaoImpl implements CategoryDao {

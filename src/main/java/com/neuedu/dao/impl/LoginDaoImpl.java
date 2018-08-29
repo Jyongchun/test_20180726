@@ -7,7 +7,6 @@ import java.sql.SQLException;
 
 import com.neuedu.dao.LoginDao;
 import com.neuedu.entity.Account;
-import com.neuedu.entity.Product;
 import com.neuedu.utils.DButils;
 
 public class LoginDaoImpl implements LoginDao{

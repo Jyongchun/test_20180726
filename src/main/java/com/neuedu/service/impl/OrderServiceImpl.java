@@ -7,25 +7,31 @@ import com.neuedu.dao.CartDao;
 import com.neuedu.dao.OrderDao;
 import com.neuedu.dao.OrderItemDao;
 import com.neuedu.dao.ProductDao;
-import com.neuedu.dao.impl.CartDaoImpl;
-import com.neuedu.dao.impl.OrderDaoImpl;
-import com.neuedu.dao.impl.OrderItemDaoImpl;
-import com.neuedu.dao.impl.productDaoMySql;
 import com.neuedu.entity.Cart;
 import com.neuedu.entity.Product;
 import com.neuedu.entity.UserOrder;
 import com.neuedu.entity.UserOrderItem;
 import com.neuedu.service.OrderService;
 import com.neuedu.utils.Utils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
+@Service
 public class OrderServiceImpl implements OrderService {
-
-	OrderDao od = new OrderDaoImpl();// 调用订单Dao层
-	OrderItemDao oid = new OrderItemDaoImpl(); // 调用订单明细Dao层
-	CartDao cd = new CartDaoImpl();
-	productDaoMySql pd = new productDaoMySql();
+	@Autowired
+	OrderDao od;
+	@Autowired
+	OrderItemDao oid ;
+	@Autowired
+	CartDao cd ;
+	@Autowired
+	ProductDao pd ;
 
 	/* 创建订单 */
+	@Transactional(isolation = Isolation.READ_COMMITTED,propagation = Propagation.REQUIRED,readOnly = false)
 	public boolean createOrder() {
 		// temp1 获取购物车信息
 		List<Cart> carts = cd.findCart();
@@ -41,11 +47,11 @@ public class OrderServiceImpl implements OrderService {
 			Cart cart = carts.get(i);
 			UserOrderItem orderItem = Utils.convertToOrderItem(oid.getOrderItemId(), uorder.getOrder_no(), cart);
 			// temp4 检验库存
-			if (orderItem.getQuantity() <= cart.getProduct().getStock()) {
+			/*if (orderItem.getQuantity() <= cart.getProduct().getStock()) {*/
 				orderItems.add(orderItem);
-			} else {
+		/*	} else {
 				return false;
-			}
+			}*/
 		}
 
 		// temp5 计算订单价格
@@ -54,12 +60,18 @@ public class OrderServiceImpl implements OrderService {
 		od.createOrder(uorder);
 		oid.addOrderItem(orderItems);
 		// temp7 扣库存
+
 		for (int i = 0; i < carts.size(); i++) {
 			Cart cart = carts.get(i);
 			Product product = cart.getProduct();
 			int leftStock = product.getStock() - cart.getNum();
+			/*剩余库存不能为负,否则事务回滚*/
+			int a = 5/leftStock;
+			if(a<0){
+				int b = a/0;
+			}
 			product.setStock(leftStock);
-			pd.deletestock(product);
+			pd.updateProduct(product);
 		}
 		
 		
@@ -97,16 +109,15 @@ public class OrderServiceImpl implements OrderService {
 		return System.currentTimeMillis();
 	}
 
-	// 查看订单
-	public List<UserOrder> findOrder() {
+	// 通过编号查看订单
+	public UserOrder findOrder(long order_no) {
 
-		return od.findOrder();
+		return od.findOrder(order_no);
 	}
 
 	@Override
-	public List<UserOrderItem> findOrderItem() {
-
-		return oid.findOrderItem();
+	public List<UserOrder> findAll() {
+		return od.findAll();
 	}
 
 }

@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 
-	<frameset rows="15%,70%,15%" border="2px">
+	<frameset rows="15%,*" border="2px">
 		<frame src="view/header.jsp" noresize="noresize" />
 		
 		<frameset cols="20%,*">

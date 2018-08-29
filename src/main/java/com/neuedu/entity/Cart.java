@@ -5,13 +5,13 @@ import java.io.Serializable;
 public class Cart implements Serializable {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -3340604346152912765L;
 	private int id;
 	private Product product;
 	private int num;
-	private int productid;
+
 
 	public Cart(int id, Product product, int num) {
 		super();
@@ -47,22 +47,12 @@ public class Cart implements Serializable {
 	public void setNum(int num) {
 		this.num = num;
 	}
-	
-	
-
-	public int getProductid() {
-		return productid;
-	}
-
-	public void setProductid(int productid) {
-		this.productid = productid;
-	}
 
 	@Override
 	public String toString() {
-		return "Cart [id=" + id + ", product=" + product + ", num=" + num + ", productid=" + productid + "]";
+		return "Cart [id=" + id + ", product=" + product + ", num=" + num + "]";
 	}
 
 
-	
+
 }

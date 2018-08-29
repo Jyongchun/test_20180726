@@ -18,5 +18,9 @@ public interface ProductDao {
 	Product findProductById(int id);
 	//��ҳ��ȡ����
 	PageModel<Product> findProductByPage(int pageNo, int pageSize);
-	
+
+	int findTotalCount();
+
+	List<Product> findInfoByPage(int pageNo, int pageSize);
+
 }

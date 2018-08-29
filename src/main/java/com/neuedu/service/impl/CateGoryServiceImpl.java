@@ -3,14 +3,16 @@ package com.neuedu.service.impl;
 import java.util.List;
 
 import com.neuedu.dao.CategoryDao;
-import com.neuedu.dao.impl.CategoryDaoImpl;
 import com.neuedu.entity.Category;
 import com.neuedu.entity.PageModel;
 import com.neuedu.service.CategoryService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class CateGoryServiceImpl implements CategoryService {
-
-	CategoryDao cgd = new CategoryDaoImpl();
+	@Autowired
+	private CategoryDao cgd;
 
 	public boolean addCategory(Category category) {
 		// TODO Auto-generated method stub

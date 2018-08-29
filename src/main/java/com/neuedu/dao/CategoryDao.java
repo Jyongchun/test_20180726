@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.neuedu.entity.Category;
 import com.neuedu.entity.PageModel;
-import com.neuedu.entity.Product;
 
 public interface CategoryDao {
 

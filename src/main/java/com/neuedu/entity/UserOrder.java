@@ -1,7 +1,7 @@
 package com.neuedu.entity;
 
 import java.io.Serializable;
-import java.text.DecimalFormat;
+import java.util.List;
 
 public class UserOrder implements Serializable {
 
@@ -14,6 +14,15 @@ public class UserOrder implements Serializable {
 	private int user_id;
 	private long create_time;
 	private double payment;
+	private List<UserOrderItem> orderItemList;
+
+	public List<UserOrderItem> getOrderItemList() {
+		return orderItemList;
+	}
+
+	public void setOrderItemList(List<UserOrderItem> orderItemList) {
+		this.orderItemList = orderItemList;
+	}
 
 	public UserOrder(int id, long order_no, int user_id, long create_time, double payment) {
 		super();
@@ -70,8 +79,13 @@ public class UserOrder implements Serializable {
 
 	@Override
 	public String toString() {
-		return "UserOrder [订单id=" + id + ", 订单编号" + order_no + ", 用户编号" + user_id + ", 创建订单时间" + create_time
-				+ " , 订单总价格：" + payment + "]";
+		return "UserOrder{" +
+				"id=" + id +
+				", order_no=" + order_no +
+				", user_id=" + user_id +
+				", create_time=" + create_time +
+				", payment=" + payment +
+				", orderItemList=" + orderItemList +
+				'}';
 	}
-
 }

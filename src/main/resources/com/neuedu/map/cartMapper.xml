@@ -1,0 +1,52 @@
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.neuedu.entity.Cart">
+
+    <insert id="addCart" parameterType="com.neuedu.entity.Cart">
+        insert into cart(productid,num)values(#{product.id},#{num})
+    </insert>
+
+    <!--查看购物车
+        查看中的一对一映射
+    -->
+    
+    <resultMap id="cart_product_resultmap" type="com.neuedu.entity.Cart" autoMapping="true">
+
+    <id property="id" column="id"></id>
+        <association property="product" column="productid" javaType="com.neuedu.entity.Product" autoMapping="true">
+           <id property="id" column="productid"></id>
+           <!-- <result property="name" column="name"></result>
+            <result property="detail" column="detail"></result>
+            <result property="price" column="price"></result>
+            <result property="image" column="image"></result>
+            <result property="stock" column="stock"></result>-->
+        </association>
+
+    </resultMap>
+    
+    <select id="findCart" resultMap="cart_product_resultmap">
+        select c.id,c.num,p.id productid,p.name,p.detail,p.price,p.image,p.stock FROM cart c join product p on c.productid=p.id;
+    </select>
+
+    <!--删除购物车-->
+    <delete id="deleteCart" parameterType="int">
+        DELETE FROM cart WHERE id=#{id}
+    </delete>
+
+    <update id="updateCart" parameterType="com.neuedu.entity.Cart">
+        update cart set num=#{num} where id=#{id};
+    </update>
+
+    <!--通过ID查找一个购物车-->
+    <select id="findCartById" parameterType="int" resultType="com.neuedu.entity.Cart">
+        select * from cart where id=#{id};
+    </select>
+
+    <delete id="clearCart" >
+        DELETE from cart;
+    </delete>
+</mapper>

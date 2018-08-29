@@ -42,7 +42,7 @@ public class CheckFilter implements Filter {
 	public void doFilter(ServletRequest _request, ServletResponse _response, FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest request = (HttpServletRequest)_request;
 		HttpServletResponse response = (HttpServletResponse) _response;
-		//得到会话域,服务器会根据已写到浏览器的JESSIONID查询到这个会话并加入到会话
+		//创建会话域,服务器会根据已写到浏览器的JESSIONID查询到这个会话并加入到会话
 		HttpSession session = request.getSession();
 	
 		Object o = session.getAttribute("token");

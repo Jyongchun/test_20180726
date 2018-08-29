@@ -3,7 +3,6 @@ package com.neuedu.service;
 import java.util.List;
 
 import com.neuedu.entity.UserOrder;
-import com.neuedu.entity.UserOrderItem;
 
 public interface OrderService {
 
@@ -11,9 +10,9 @@ public interface OrderService {
 	boolean createOrder();
 
 	// 查看订单
-	List<UserOrder> findOrder();
+	UserOrder findOrder(long order_no);
 
-	List<UserOrderItem> findOrderItem();
+	List<UserOrder> findAll();
 
 	// 获取订单号
 	long orderNo();

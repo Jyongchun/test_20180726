@@ -10,7 +10,7 @@
 <body>
 <h1>查看订单</h1>
 
-<table>
+<table border="1px" cellpadding="0" cellspacing="2px">
 	<tr>
 		<th>订单id</th>
 		<th>订单编号</th>
@@ -28,13 +28,13 @@
 		<td>${order.payment }</td>
 		<td><a href="#">删除</a></td>
 		<td><a href="#">修改</a></td>
-		
+		<td><a href="OrderServlet?operation=3&order_no=${order.order_no}">查看订单明细</a></td>
 	</tr>
 	</c:forEach>
 
 </table>
 
-<h3><a href="OrderServlet?operation=3">查看订单明细</a></h3>
+
 
  
 </body>

@@ -1,0 +1,38 @@
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.neuedu.dao.OrderDao">
+
+    <insert id="createOrder" parameterType="com.neuedu.entity.UserOrder">
+        insert into userorder(order_no,user_id,create_time,payment)values(#{order_no},#{user_id},now(),#{payment});
+    </insert>
+
+    <!--一对多-->
+    <resultMap id="orderitems_resultmap" type="com.neuedu.entity.UserOrder" autoMapping="true">
+         <id column="id" property="id"></id>
+
+        <result property="order_no" column="userorder_order_no"></result>
+       <collection property="orderItemList" javaType="ArrayList"  ofType="com.neuedu.entity.UserOrderItem"  column="order_no" autoMapping="true">
+          <id column="userorderitem_id" property="id"></id>
+           <result property="order_no" column="userorderitem_order_no"></result>
+
+       </collection>
+
+    </resultMap>
+
+    <select id="findOrder" resultMap="orderitems_resultmap" parameterType="long">
+
+        SELECT ur.id,ur.order_no userorder_order_no,ur.user_id,ur.create_time,ur.payment,uoi.id AS userorderitem_id,uoi.order_no AS userorderitem_order_no ,uoi.user_id,uoi.product_id,uoi.product_name,uoi.quantity,uoi.total_price
+        from userorder ur
+        INNER JOIN userorderitem uoi
+        ON  ur.order_no=uoi.order_no
+         WHERE ur.order_no=#{arg0}
+
+    </select>
+    <select id="findAll" resultType="com.neuedu.entity.UserOrder">
+        select * from userorder;
+    </select>
+</mapper>

@@ -14,11 +14,17 @@ import javax.servlet.http.HttpServletResponse;
 import com.neuedu.entity.Cart;
 import com.neuedu.entity.Product;
 import com.neuedu.service.CartService;
-import com.neuedu.service.impl.CartServiceImpl;
+import com.neuedu.service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 /**
  * Servlet implementation class CartServlet
  */
+@Controller
 @WebServlet("/view/cartservlet")
 public class CartServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -27,17 +33,34 @@ public class CartServlet extends HttpServlet {
      * @see HttpServlet#HttpServlet()
      */
 	
-    public CartServlet() {
+    public CartServlet(){
         super();
         // TODO Auto-generated constructor stub
+
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-    CartService cs = new CartServiceImpl();
+
+	//控制反转
+	//CartService cs = new CartServiceImpl();
+	@Autowired
+    CartService cs;
+	@Autowired
+	ProductService ps;
+
+	@Override
+	public void init() throws ServletException {
+		/*WebApplicationContext mWebApplicationContext
+				= WebApplicationContextUtils.getWebApplicationContext(this.getServletContext());
+		cs = (CartService)mWebApplicationContext.getBean("cartServiceImpl");*/
+		SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this,this.getServletContext());
+	}
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	String operation = request.getParameter("operation");
+
+		String operation = request.getParameter("operation");
 		if(operation.equals("1")) {
 			addCart(request,response);
 		}else if(operation.equals("2")) {
@@ -164,11 +187,14 @@ public class CartServlet extends HttpServlet {
 		int num = 0;
 		boolean result = false;
 		Cart cart = new Cart();
-		ProductServlet p = new ProductServlet();
+		/*ProductServlet p = new ProductServlet();*/
+
+
+
 		try {
 			id = Integer.parseInt(request.getParameter("id"));
 			num = Integer.parseInt(request.getParameter("num"));
-			Product product = p.findProductById(id);
+			Product product = ps.findProductById(id);
 			cart.setNum(num);
 			cart.setProduct(product);
 			result = addCart(cart);

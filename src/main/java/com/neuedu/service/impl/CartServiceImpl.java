@@ -3,13 +3,29 @@ package com.neuedu.service.impl;
 import java.util.List;
 
 import com.neuedu.dao.CartDao;
-import com.neuedu.dao.impl.CartDaoImpl;
+
 import com.neuedu.entity.Cart;
 import com.neuedu.service.CartService;
+import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import javax.annotation.Resource;
+
+@Service
 public class CartServiceImpl implements CartService {
 
-	CartDao cd = new CartDaoImpl();
+/*CartDao cd = new CartMybatisImpl();//dao的东西*/
+
+	@Resource(name="cartMybatisImpl")
+	CartDao cd;
+
+
+	@PostConstruct
+	public void init(){
+		System.out.println("===init==");
+	}
+
 
 	@Override
 	public boolean addCart(Cart cart) {
@@ -19,7 +35,7 @@ public class CartServiceImpl implements CartService {
 
 	@Override
 	public List<Cart> findCart() {
-
+		System.out.println("==findCart=");
 		return cd.findCart();
 	}
 
@@ -45,6 +61,10 @@ public class CartServiceImpl implements CartService {
 	public Cart getCartById(int id) {
 
 		return cd.getCartById(id);
+	}
+	@PreDestroy
+	public void destroy(){
+		System.out.println("==destroy==");
 	}
 
 }

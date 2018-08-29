@@ -1,9 +1,7 @@
 package com.neuedu.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,11 +9,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.alibaba.fastjson.JSONArray;
+
 import com.neuedu.entity.PageModel;
 import com.neuedu.entity.Product;
+
 import com.neuedu.service.ProductService;
-import com.neuedu.service.impl.ProductServiceImplSql;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
+import org.springframework.web.context.support.WebApplicationContextUtils;
+
+@Controller
 @WebServlet("/view/product")
 public class ProductServlet extends HttpServlet{
 
@@ -24,8 +29,15 @@ public class ProductServlet extends HttpServlet{
 	 */
 	private static final long serialVersionUID = -2163516425576241675L;
 	
-	
-	ProductService ps = new ProductServiceImplSql();
+	@Autowired
+	ProductService ps ;
+
+
+	public void init(){
+
+		SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this,this.getServletContext());
+
+	}
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse respose) throws ServletException, IOException {
 			
@@ -35,16 +47,12 @@ public class ProductServlet extends HttpServlet{
 		if(operation!=null&&!operation.equals("")) {
 			if(operation.equals("1")) {
 				addProduct(request,respose);
-				
 			}else if(operation.equals("2")) {
 				findAll(request,respose);
-				
 			}else if(operation.equals("3")) {
 				updateProduct(request,respose);
-				
 			}else if(operation.equals("4")) {
 				deleteProduct(request,respose);
-				
 			}else if(operation.equals("5")) {
 				showProduct(request,respose);
 			}else if(operation.equals("6")) {
@@ -93,7 +101,6 @@ public class ProductServlet extends HttpServlet{
 		}
 		if(result) {
 			System.out.println("?????????");
-		//	jump(request, respose);
 			findAll(request, respose);
 		}else {
 			System.out.println("?????????");
@@ -118,7 +125,14 @@ public class ProductServlet extends HttpServlet{
 			price = Double.parseDouble(request.getParameter("price"));
 			String image = request.getParameter("image");
 			stock = Integer.parseInt(request.getParameter("stock"));
-			
+
+			System.out.println(id);
+			System.out.println(name);
+			System.out.println(detail);
+			System.out.println(price);
+			System.out.println(image);
+			System.out.println(stock);
+
 			Product product = findProductById(id);
 			product.setName(name);
 			product.setDetail(detail);
@@ -132,10 +146,9 @@ public class ProductServlet extends HttpServlet{
 		}
 		if(result) {
 			System.out.println("ÐÞ¸Ä³É¹¦");
-			//jump(request, respose);
 			findAll(request, respose);
 		}else {
-			System.out.println("?????????");
+			System.out.println("Fail");
 		}
 		
 		
@@ -153,7 +166,7 @@ public class ProductServlet extends HttpServlet{
 	}*/
 	public void findAll(HttpServletRequest request, HttpServletResponse respose) throws ServletException, IOException {
 	
-		ProductService ps = new ProductServiceImplSql();
+
 		String pageNo = request.getParameter("pageNo");
 		int _pageNo = 1;
 		

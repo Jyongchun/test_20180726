@@ -22,12 +22,12 @@
 				/*去除项目符号*/
 				list-style: none;
 				/*为ul设置一个背景颜色*/
-				background-color: #6495ED;
+				background-color: cadetblue;
 				/*设置一个宽度*/
 				/*
 				 * 在IE6中，如果为元素指定了一个宽度，则会默认开启hasLayout
 				 */
-				width: 200px;
+				width: 300px;
 				/*设置元素居中*/
 				margin: 100px auto;
 				/*解决高度塌陷*/
@@ -69,8 +69,10 @@
 			h1{
 				text-align: center;
 			}
-			
-			
+
+			._h{
+				display: none;
+			}
 		</style>
 
 </head>
@@ -78,14 +80,27 @@
 
 <!-- 创建导航条的结构 -->
 		<ul class="nav">
-		
-			<li><a href="product?operation=2&pageNo=1" target="show">查看商品</a></li>
-			<li><a href="#" target="show">查看地址</a></li>
-			<li><a href="CategoryPage?pageNo=1" target="show">查看类别</a></li>
-			<li><a href="cartservlet?operation=2" target="show">查看购物车   </a></li>
-			<li><a href="OrderServlet?operation=2" target="show">查看我的订单</a></li>
-			
+			<li class="control"><a>商品管理</a></li>
+			<li class="_h"><a href="product?operation=2&pageNo=1" target="show">查看商品</a></li>
+			<li class="_h"><a href="CategoryPage?pageNo=1" target="show">查看类别</a></li>
+			<li ><a href="cartservlet?operation=2" target="show">查看购物车   </a></li>
+			<li class="_li"><a href="OrderServlet?operation=2" target="show">查看我的订单</a></li>
+			<li class="orderitem" style="display: none"><a>早安,午安，晚安</a></li>
+
 		</ul>
 		
 </body>
 </html>
+<script src="../js/jquery-3.3.1.js"></script>
+<script>
+
+	$(function () {
+		$("._li").click(function () {
+			$(".orderitem").toggle(1000)
+        })
+		$(".control").click(function () {
+			$("._h").toggle(1000)
+        })
+    })
+
+</script>

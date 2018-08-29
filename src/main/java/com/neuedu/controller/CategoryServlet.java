@@ -1,8 +1,6 @@
 package com.neuedu.controller;
 
 import java.io.IOException;
-import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -13,15 +11,22 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.neuedu.entity.Category;
 import com.neuedu.entity.PageModel;
-import com.neuedu.entity.Product;
 import com.neuedu.service.CategoryService;
-import com.neuedu.service.impl.CateGoryServiceImpl;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 /**
  * Servlet implementation class CategoryServlet
  */
 @WebServlet("/view/CategoryServlet")
 public class CategoryServlet extends HttpServlet {
+	private CategoryService cgs;
+
+	public void init(){
+		WebApplicationContext mWebApplicationContext
+				= WebApplicationContextUtils.getWebApplicationContext(this.getServletContext());
+		cgs =  (CategoryService) mWebApplicationContext.getBean("cateGoryServiceImpl");
+	}
 	private static final long serialVersionUID = 1L;
        
     /**
@@ -32,8 +37,8 @@ public class CategoryServlet extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-	
-    
+
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String operation = request.getParameter("operation");
 			
@@ -59,7 +64,7 @@ public class CategoryServlet extends HttpServlet {
 	
 	
 	public void jump(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		CategoryService cgs = new CateGoryServiceImpl();
+
 		
 		PageModel<Category> pageModel = cgs.findCategoryByPage(1, 4);	
 		request.setAttribute("pageModel", pageModel);
@@ -189,7 +194,7 @@ public class CategoryServlet extends HttpServlet {
 		doGet(request, response);
 	}
 
-	CategoryService cgs = new CateGoryServiceImpl();
+
 	
 	
 	

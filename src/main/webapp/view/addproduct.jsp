@@ -33,7 +33,7 @@
 		</tr>	
 						
 		<tr>
-			<td><input type="submit" value="提交"/></td>
+			<td><input type="submit" value="提交" /></td>
 		</tr>
 	
 	</table>

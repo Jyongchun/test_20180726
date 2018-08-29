@@ -9,7 +9,7 @@
 </head>
 <body>
 <h1>修改购物车信息</h1>
-<form action="CartServlet" methed="get">
+<form action="cartservlet" methed="get">
 	<input type="hidden" name = "operation"  value="4" />
 	<input type="hidden" name = "id"  value="${cart.id }" />
 	<table>

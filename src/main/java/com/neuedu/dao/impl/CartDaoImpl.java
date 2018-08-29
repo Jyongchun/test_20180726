@@ -1,3 +1,4 @@
+/*
 package com.neuedu.dao.impl;
 
 import java.sql.Connection;
@@ -14,7 +15,7 @@ import com.neuedu.dao.ProductDao;
 import com.neuedu.dao.impl.productDaoMySql;
 import com.neuedu.entity.Cart;
 import com.neuedu.entity.Product;
-import com.neuedu.utils.DButils;
+import DButils;
 
 public class CartDaoImpl implements CartDao {
 
@@ -57,9 +58,11 @@ public class CartDaoImpl implements CartDao {
 		return false;
 	}
 
-	/*
+	*/
+/*
 	 * �鿴���ﳵ
-	 * */
+	 * *//*
+
 	public List<Cart> findCart() {
 		ProductDao pd = new productDaoMySql();
 		
@@ -104,9 +107,11 @@ public class CartDaoImpl implements CartDao {
 	
 	
 
-	/*
+	*/
+/*
 	 * �޸Ĺ��ﳵ��Ʒ����
-	 * */
+	 * *//*
+
 	public boolean updateCart(Cart cart) {
 		Connection coon = null;
 		PreparedStatement st = null;
@@ -134,9 +139,11 @@ public class CartDaoImpl implements CartDao {
 		return false;
 	}
 
-	/*
+	*/
+/*
 	 * ɾ�����ﳵ
-	 * */
+	 * *//*
+
 	public boolean deleteCart(int id) {
 		Connection coon = null;
 		Statement st = null;
@@ -237,3 +244,4 @@ public class CartDaoImpl implements CartDao {
 	}
 
 }
+*/

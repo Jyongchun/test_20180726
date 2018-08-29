@@ -3,50 +3,30 @@ package com.neuedu.dao.impl;
 import com.neuedu.dao.ProductDao;
 import com.neuedu.entity.PageModel;
 import com.neuedu.entity.Product;
-import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
-import java.io.IOException;
-import java.io.Reader;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+@Repository
 public class ProductMybatisImpl implements ProductDao{
+    @Autowired
+    private  SqlSession session;
     @Override
+
     public boolean addProduct(Product product) {
 
-        String resource = "mybatis-config.xml";
-        Reader reader = null;
-        SqlSession session;
-        try {
-            reader = Resources.getResourceAsReader(resource);
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        SqlSessionFactory sqlMapper = new SqlSessionFactoryBuilder()
-                .build(reader);
-        session = sqlMapper.openSession(true);
+
 
         /*
          * 1.namespace+id
          * */
-        int result= session.insert("com.neuedu.entity.Product.addProduct",product);
-       if(result==1){
-           System.out.println("success");
-           session.close();
-           return true;
-       }else{
-           System.out.println("Fail");
-           session.close();
-           return false;
-       }
+        ProductDao pd =  session.getMapper(ProductDao.class);
+       pd.addProduct(product);
 
-
-
+       return true;
 
     }
 
@@ -64,93 +44,78 @@ public class ProductMybatisImpl implements ProductDao{
         7，关闭 ，关闭SqlSession
         */
 
-        String resource = "mybatis-config.xml";
-        Reader reader = null;
-        SqlSession session;
-        try {
-            reader = Resources.getResourceAsReader(resource);
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        SqlSessionFactory sqlMapper = new SqlSessionFactoryBuilder()
-                .build(reader);
-        session = sqlMapper.openSession();
 
         /*
          * 1.namespace+id
          * */
-        List<Product> products= session.selectList("com.neuedu.entity.Product.findAllProduct");
-        System.out.println(products);
-        session.close();
-
-
+       ProductDao pd = session.getMapper(ProductDao.class);
+       List<Product> products = pd.findAll();
 
         return products;
     }
 
     @Override
     public boolean updateProduct(Product product) {
-        String resource = "mybatis-config.xml";
-        Reader reader = null;
-        SqlSession session;
-        try {
-            reader = Resources.getResourceAsReader(resource);
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        SqlSessionFactory sqlMapper = new SqlSessionFactoryBuilder()
-                .build(reader);
-        //事物提交
-        session = sqlMapper.openSession(true);
-        int result = session.update("com.neuedu.entity.Product.updateProduct",product);
-        if(result==1){
-            System.out.println("Success");
-            session.close();
-            return true;
-        }else {
-            System.out.println("Fail");
-            session.close();
-            return false;
-        }
+
+       ProductDao pd= session.getMapper(ProductDao.class);
+        pd.updateProduct(product);
+        return true;
     }
 
     @Override
     public boolean deleteProduct(int id) {
-        String resource = "mybatis-config.xml";
-        Reader reader = null;
-        SqlSession session;
-        try {
-            reader = Resources.getResourceAsReader(resource);
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        SqlSessionFactory sqlMapper = new SqlSessionFactoryBuilder()
-                .build(reader);
-        //事物提交
-        session = sqlMapper.openSession(true);
-        int result = session.delete("com.neuedu.entity.Product.deleteProductById",id);
-        if(result==1){
-            System.out.println("Delete Success");
-            session.close();
-            return true;
-        }else {
-            System.out.println("Fail");
-            session.close();
-            return false;
-        }
 
+
+      ProductDao pd= session.getMapper(ProductDao.class);
+        pd.deleteProduct(id);
+        return true;
     }
 
     @Override
     public Product findProductById(int id) {
-        return null;
+
+
+       ProductDao pd= session.getMapper(ProductDao.class);
+       Product product = pd.findProductById(id);
+        return product;
     }
 
     @Override
     public PageModel<Product> findProductByPage(int pageNo, int pageSize) {
-        return null;
+
+        //总记录数
+        int totalCount =  findTotalCount();
+        //计算页数
+        int totalPage = (totalCount%pageSize==0)?(totalCount/pageSize):(totalCount/pageSize+1);
+
+        //查询页面数据
+       /* Map<String,Object> map = new HashMap<String, Object>();
+        map.put("offset",(pageNo-1)*pageSize);
+        map.put("pageSize",pageSize);*/
+
+         List<Product> products = findInfoByPage(pageNo,pageSize);
+
+        PageModel<Product> pagemodel = new PageModel<Product>();
+        pagemodel.setData(products);
+        pagemodel.setCurrentPage(pageNo);
+        pagemodel.setTotalpage(totalPage);
+
+        return pagemodel;
     }
+
+    @Override
+    public int findTotalCount() {
+        ProductDao pd = session.getMapper(ProductDao.class);
+
+        return pd.findTotalCount();
+    }
+
+    @Override
+    public List<Product> findInfoByPage(int pageNo, int pageSize) {
+        ProductDao pd =  session.getMapper(ProductDao.class);
+        int _pageNo = (pageNo-1)*pageSize;
+        return pd.findInfoByPage(_pageNo,pageSize);
+    }
+
+
 }

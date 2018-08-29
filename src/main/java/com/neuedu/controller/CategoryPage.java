@@ -9,11 +9,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.neuedu.entity.Category;
 import com.neuedu.entity.PageModel;
-import com.neuedu.entity.Product;
 import com.neuedu.service.CategoryService;
-import com.neuedu.service.ProductService;
-import com.neuedu.service.impl.CateGoryServiceImpl;
-import com.neuedu.service.impl.ProductServiceImplSql;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 /**
  * Servlet implementation class CategoryPage
@@ -21,7 +21,17 @@ import com.neuedu.service.impl.ProductServiceImplSql;
 @WebServlet("/view/CategoryPage")
 public class CategoryPage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	@Autowired
+	private CategoryService cgs;
+
+
+	public void init(){
+		/*WebApplicationContext mWebApplicationContext
+				= WebApplicationContextUtils.getWebApplicationContext(this.getServletContext());
+		cgs =  (CategoryService) mWebApplicationContext.getBean("cateGoryServiceImpl");*/
+		SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this,this.getServletContext());
+
+	}
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -35,7 +45,7 @@ public class CategoryPage extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		CategoryService cgs = new CateGoryServiceImpl();
+
 		String pageNo = request.getParameter("pageNo");
 		System.out.println(pageNo);
 		PageModel<Category> pageModel = cgs.findCategoryByPage(Integer.parseInt(pageNo), 4);

@@ -1,17 +1,14 @@
 package com.neuedu.dao.impl;
 
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
 
-import com.neuedu.dao.OrderDao;
 import com.neuedu.entity.UserOrder;
 import com.neuedu.utils.DButils;
 
-public class OrderDaoImpl implements OrderDao {
+public class OrderDaoImpl {
 
 	// ��Ӷ���
 	public boolean createOrder(UserOrder order) {
@@ -47,16 +44,14 @@ public class OrderDaoImpl implements OrderDao {
 		return true;
 	}
 
-	
-	
 
-	
+	public UserOrder findOrder() {
+		return null;
+	}
 
-	
-	
 
 	// �鿴����
-	public List<UserOrder> findOrder() {
+	/*public List<UserOrder> findOrder() {
 		 List<UserOrder> orders = new ArrayList<UserOrder>();
 			Connection coon = null;
 			Statement st = null;
@@ -101,13 +96,18 @@ public class OrderDaoImpl implements OrderDao {
 		
 			return orders;
 	}
-
+*/
 	// ��ȡ����id
 	public int getOrderId() {
 		
 		return 0;
 
 		
+	}
+
+
+	public List<UserOrder> findAll() {
+		return null;
 	}
 
 }

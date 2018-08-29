@@ -9,9 +9,11 @@ public interface OrderDao {
 	// 创建订单
 	boolean createOrder(UserOrder order);
 
-	// 查看订单
-	List<UserOrder> findOrder();
+	// 根据订单编号查看订单
+	UserOrder findOrder(long order_no);
 
 	// 获取订单ID
 	int getOrderId();
+
+	List<UserOrder> findAll();
 }

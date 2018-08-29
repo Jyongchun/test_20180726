@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<table>
+<table border="1px" cellpadding="0" cellspacing="2px">
 	<tr>
 		<th>订单明细ID</th>
 		<th>订单明细编号</th>
@@ -26,7 +26,7 @@
 	</tr>
 	
 	
-<c:forEach items="${items}" var="item">   
+<c:forEach items="${items}" var="item">
 		
 	<tr>
 		<td>${item.id}</td>

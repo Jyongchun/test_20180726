@@ -40,14 +40,10 @@
 		<tr>
 			<td>排序编号</td>
 			<td><input type="text" name="sort_order" value="${category.sort_order }"/></td>	
-		</tr>	
-		
-		
-							
+		</tr>
 		<tr>
 			<td><input type="submit" value="修改类别"/></td>
 		</tr>
-	
 	</table>
 	</form>
 </body>

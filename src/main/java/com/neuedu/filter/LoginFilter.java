@@ -15,8 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.neuedu.entity.Account;
 import com.neuedu.service.LoginService;
 import com.neuedu.service.impl.LoginServiceImpl;
-import com.neuedu.utils.DButils;
-import com.neuedu.utils.MD5Utils;
 
 /**
  * Servlet Filter implementation class LoginFilter

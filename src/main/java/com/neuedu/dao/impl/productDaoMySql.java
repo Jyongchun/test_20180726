@@ -4,17 +4,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 
-import com.neuedu.dao.ProductDao;
 import com.neuedu.entity.PageModel;
 import com.neuedu.entity.Product;
 import com.neuedu.utils.DButils;
 
-public class productDaoMySql implements ProductDao {
+public class productDaoMySql{
 
 	
 	
@@ -210,9 +208,9 @@ public class productDaoMySql implements ProductDao {
 		try {
 			
 			System.out.println("�����������");
-			//temp2��ȡ����
+			//temp2
 			coon = DButils.getConnection();
-			//temp3��ȡstatement
+			//temp3
 			String sql = "select * from product where id=?";
 			st = coon.prepareStatement(sql);
 			st.setInt(1, id);

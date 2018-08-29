@@ -13,7 +13,7 @@
 
 	<form  action="product" methed="get"  >
 	<input type="hidden" name = "operation"  value="3" />
-	<input type="hidden" name = "id"  value="${product.id }"/>
+	<input type="hidden" name = "id"  value="${product.id}"/>
 <table>
 
 	<tr>
@@ -22,7 +22,7 @@
 	</tr>	
 	<tr>
 		<th>商品信息 </th>
-		<td>  <input type="text" name="detail" value=" ${product.detail}" /></td>
+		<td>  <input type="text" name="detail" value="${product.detail}" /></td>
 		
 	</tr>	
 	<tr>
@@ -31,11 +31,11 @@
 	</tr>	
 	<tr>
 		<th>商品库存 </th>
-		<td><input type="text" name="stock" value="${product.stock} " /> </td>
+		<td><input type="text" name="stock" value="${product.stock}" /> </td>
 	</tr>	
 	<tr>
 		<th>商品价格 </th>
-		<td><input type="text" name="price" value=" ${product.price}" /> </td>
+		<td><input type="text" name="price" value="${product.price}" /> </td>
 	</tr>	
 	<tr>
 			<td><input type="submit" value="修改商品"/></td>
